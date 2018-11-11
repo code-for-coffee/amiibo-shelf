@@ -1,3 +1,5 @@
+import { debug } from "util";
+
 class Store {
   appStore = { state: undefined };
 
@@ -23,9 +25,13 @@ class Store {
       });
       let result = arraysInState.filter(key => arraysInNextState.includes(key));
       let obj = {};
+
       result.forEach(key => {
-        obj[key] = this.appStore.state[key].concat(newAttributes[key]);
+        if (!key) return;
+        let state = this.appStore.state;
+        obj[key] = state[key].concat(newAttributes[key]);
       });
+
       return obj;
     };
 
